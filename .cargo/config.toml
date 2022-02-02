@@ -1,0 +1,13 @@
+[target.'cfg(all())']
+rustflags = [
+    "-Wfuture_incompatible",
+    #"-Wmissing_debug_implementations",
+    #"-Wmissing_docs",
+    "-Wnonstandard_style",
+    "-Wrust-2018-compatibility",
+    #"-Wrust-2021-compatibility",
+    "-Wrust_2018_idioms",
+    "-Wclippy::all",
+    #"-Wclippy::pedantic",
+    #"-Wclippy::cargo",
+]
