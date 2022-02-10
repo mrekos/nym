@@ -128,7 +128,7 @@ async fn _prepare_temporary_credential(validators: &[Url], raw_identity: &[u8]) 
     .expect("could not prepare out bandwidth credential for spending")
 }
 
-async fn register_with_gateway(
+pub async fn register_with_gateway(
     gateway: &gateway::Node,
     our_identity: Arc<identity::KeyPair>,
 ) -> Arc<SharedKeys> {
@@ -149,7 +149,7 @@ async fn register_with_gateway(
         .expect("failed to register with the gateway!")
 }
 
-async fn gateway_details(
+pub async fn gateway_details(
     validator_servers: Vec<Url>,
     chosen_gateway_id: Option<&str>,
 ) -> gateway::Node {
@@ -183,7 +183,7 @@ async fn gateway_details(
     }
 }
 
-fn show_address(config: &Config) {
+pub fn show_address(config: &Config) -> Recipient {
     fn load_identity_keys(pathfinder: &ClientKeyPathfinder) -> identity::KeyPair {
         let identity_keypair: identity::KeyPair =
             pemstore::load_keypair(&pemstore::KeyPairPath::new(
@@ -217,6 +217,8 @@ fn show_address(config: &Config) {
     );
 
     println!("\nThe address of this client is: {}", client_recipient);
+
+    client_recipient
 }
 
 pub async fn execute(matches: ArgMatches<'static>) {
