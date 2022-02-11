@@ -1,4 +1,3 @@
-use super::PledgeData;
 use crate::errors::ContractError;
 use crate::storage::MIXNET_CONTRACT_ADDRESS;
 use crate::traits::MixnodeBondingAccount;
@@ -8,6 +7,7 @@ use vesting_contract_common::events::{
     new_vesting_mixnode_bonding_event, new_vesting_mixnode_unbonding_event,
 };
 use vesting_contract_common::one_unym;
+use vesting_contract_common::PledgeData;
 
 use super::Account;
 
@@ -34,10 +34,7 @@ impl MixnodeBondingAccount for Account {
                 self.owner_address().as_str().to_string(),
             ));
         } else {
-            PledgeData {
-                block_time: env.block.time,
-                amount: pledge.amount,
-            }
+            PledgeData::new(pledge.clone(), env.block.time)
         };
 
         let msg = MixnetExecuteMsg::BondMixnodeOnBehalf {
